@@ -1,33 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Home} from "./Components/Layouts/Home";
+import {FormLogIn} from "./Components/Layouts/FormLogIn";
+import {FormRegister} from "./Components/Layouts/FormRegister";
+import {Cakes} from "./Components/Layouts/Cakes";
+import {ShoppingCart} from "./Components/Layouts/ShoppingCart.jsx";
+import {CartProvider} from "./Context/CartContext";
+import {ControlPanel} from "./ControlPanel/ControlPanel";
+import {PanelHome} from "./ControlPanel/Layouts/PanelHome";
+import {ProductsPanel} from "./ControlPanel/Layouts/ProductsPanel";
+import {Provider} from "react-redux";
+import store from "./store/index.jsx";
+import {UserDates} from "./Components/Layouts/UserDates";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+            <div className="App">
+                <BrowserRouter>
+                    <Provider store={store}>
+                        <CartProvider>
+                    <Routes>
+                        <Route path={"/HappyWeb/"} element={<Home></Home>}></Route>
+                        <Route path={"/HappyWeb/LogIn"} element={<FormLogIn></FormLogIn>}></Route>
+                        <Route path={"/HappyWeb/Register"} element={<FormRegister></FormRegister>}></Route>
+                        <Route path={"/HappyWeb/Pasteles"} element={<Cakes></Cakes>}></Route>
+                        <Route path={"/HappyWeb/ShoppingCar"} element={<ShoppingCart></ShoppingCart>}></Route>
+                        <Route path={"/HappyWeb/UserDates"} element={<UserDates></UserDates>}></Route>
+                        <Route path={"/HappyWeb/ControlPanel"} element={<ControlPanel></ControlPanel>}></Route>
+                        <Route path={"/HappyWeb/PanelHome"} element={<PanelHome></PanelHome>}></Route>
+                        <Route path={"/HappyWeb/ControlPanel/Products"} element={<ProductsPanel></ProductsPanel>}></Route>
+                    </Routes>
+                        </CartProvider>
+                    </Provider>
+                </BrowserRouter>
+            </div>
+
   )
 }
 
